@@ -1,14 +1,18 @@
+import { ServiceController } from './../controllers/serviceController';
 import { Request, Response, NextFunction } from "express";
 import { BookController } from "../controllers/bookController";
 import { AuthorController } from "../controllers/authorController";
 import { AuthMiddleware } from "../middlewares/authMiddleware";
 import { AuthController } from "../controllers/authController"
+import { TeamController } from '../controllers/teamController';
 
 export class Routes {
 
     public bookController: BookController = new BookController()
     public authorController: AuthorController = new AuthorController()
     public authController: AuthController = new AuthController()
+    public serviceController:ServiceController = new ServiceController()
+    public teamController: TeamController = new TeamController()
 
     public routes(app): void {
 
@@ -42,6 +46,30 @@ export class Routes {
             .get( this.bookController.getById)
             .put( this.bookController.update)
             .delete( this.bookController.delete)
+
+        // Service 
+        app.route('/service')
+            .post( this.serviceController.add);
+        app.route('/service/get/:authorId')
+            .get( this.serviceController.getByAuthorId)
+        app.route('/service/get')
+            .get( this.serviceController.get)
+        app.route('/service/:bookId')
+            .get( this.serviceController.getById)
+            .put( this.serviceController.update)
+            .delete( this.serviceController.delete)
+
+        // Team 
+        app.route('/team')
+            .post( this.teamController.add);
+        app.route('/team/get/:authorId')
+            .get( this.teamController.getByAuthorId)
+        app.route('/team/get')
+            .get( this.teamController.get)
+        app.route('/team/:bookId')
+            .get( this.teamController.getById)
+            .put( this.teamController.update)
+            .delete( this.teamController.delete)
 
         // Author 
         app.route('/author')
