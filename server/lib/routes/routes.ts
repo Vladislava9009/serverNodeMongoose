@@ -5,6 +5,7 @@ import { AuthorController } from "../controllers/authorController";
 import { AuthMiddleware } from "../middlewares/authMiddleware";
 import { AuthController } from "../controllers/authController"
 import { TeamController } from '../controllers/teamController';
+import { CallsController } from '../controllers/callsController';
 
 export class Routes {
 
@@ -13,6 +14,7 @@ export class Routes {
     public authController: AuthController = new AuthController()
     public serviceController:ServiceController = new ServiceController()
     public teamController: TeamController = new TeamController()
+    public callsController: CallsController = new CallsController()
 
     public routes(app): void {
 
@@ -70,6 +72,19 @@ export class Routes {
             .get( this.teamController.getById)
             .put( this.teamController.update)
             .delete( this.teamController.delete)
+
+        
+        //Calls
+        app.route('/calls')
+            .post( this.callsController.add);
+        app.route('/calls/get/:authorId')
+            .get( this.callsController.getByAuthorId)
+        app.route('/calls/get')
+            .get( this.callsController.get)
+        app.route('/calls/:bookId')
+            .get( this.callsController.getById)
+            .put( this.callsController.update)
+            .delete( this.callsController.delete)    
 
         // Author 
         app.route('/author')

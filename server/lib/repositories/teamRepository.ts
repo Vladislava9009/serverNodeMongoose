@@ -4,7 +4,8 @@ interface IUserEntity extends ITeamModel, mongoose.Document { }
 mongoose.model('Team', new mongoose.Schema({
     img: String,
     name: String,
-    about:String
+    about:String,
+    schedule:Array
 }));
 
 export const TeamRepository = mongoose.model<IUserEntity>('Team');
